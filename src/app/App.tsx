@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from './store'
 import {RequestStatusType} from './app-reducer'
 import {Login} from "../features/Login/Login";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 
 type PropsType = {
     demo?: boolean
@@ -35,7 +35,8 @@ function App({demo = false}: PropsType) {
                 <Routes>
                     <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'*'} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'/*'} element={ <Navigate to={'404'}/> }/>
                 </Routes>
             </Container>
         </div>
