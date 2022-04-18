@@ -54,10 +54,11 @@ export const Login = () => {
                         <TextField
                             label="Email"
                             margin="normal"
-                            name={'email'}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.email}
+                            // name={'email'}
+                            // onChange={formik.handleChange}
+                            // onBlur={formik.handleBlur}
+                            // value={formik.values.email}
+                            { ...formik.getFieldProps('email') }
                         />
 
                         {
