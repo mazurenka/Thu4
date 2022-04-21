@@ -34,14 +34,14 @@ export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    authAPI.me().then(res => {
-        debugger
-        if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true));
-        } else {
-            handleServerAppError(res.data, dispatch)
-        }
-    })
+    authAPI.me()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(true));
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
         .catch((error) => {
             handleServerNetworkError(error, dispatch)
         })
