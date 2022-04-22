@@ -15,7 +15,6 @@ type FormikErrorType = {
 export const Login = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
@@ -47,7 +46,6 @@ export const Login = () => {
 
     if (isLoggedIn) {
         return <Navigate to={'/'}/>
-        //navigate('/')
     }
 
     return <Grid container justify="center">

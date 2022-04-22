@@ -15,7 +15,7 @@ import {TaskStatuses} from '../../api/todolists-api'
 import {Grid, Paper} from '@material-ui/core'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
-import {useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 type PropsType = {
     demo?: boolean
@@ -27,7 +27,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     useEffect(() => {
         if (demo || !isLoggedIn) {
@@ -78,7 +77,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     if (!isLoggedIn) {
-        navigate('login')
+        return <Navigate to={'login'}/>
     }
 
     return <>
