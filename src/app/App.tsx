@@ -15,9 +15,10 @@ import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store'
-import {initializeAppTC, RequestStatusType, setAppIsInitializedAC} from './app-reducer'
+import {initializeAppTC, RequestStatusType} from './app-reducer'
 import {Login} from "../features/Login/Login";
-import {Route, Routes, Navigate} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {logoutTC} from "../features/Login/authReducer";
 
 type PropsType = {
     demo?: boolean
@@ -27,6 +28,7 @@ function App({demo = false}: PropsType) {
 
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -37,6 +39,10 @@ function App({demo = false}: PropsType) {
         return <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
         </div>
+    }
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
     }
 
     return (
@@ -50,7 +56,7 @@ function App({demo = false}: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Logout</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
@@ -59,7 +65,7 @@ function App({demo = false}: PropsType) {
                     <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
-                    <Route path={'/*'} element={ <Navigate to={'404'}/> }/>
+                    <Route path={'/*'} element={<Navigate to={'404'}/>}/>
                 </Routes>
             </Container>
         </div>
