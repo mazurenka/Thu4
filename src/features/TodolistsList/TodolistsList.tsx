@@ -78,7 +78,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     if (!isLoggedIn) {
-        navigate('/login')
+        navigate('login')
     }
 
     return <>
